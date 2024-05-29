@@ -1,14 +1,21 @@
 import openai
-from keys import OPENAI_API_KEY
+# from keys import OPENAI_API_KEY
 from prompts import create_prompt, INITIAL_RESPONSE
 import time
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+
 
 openai.api_key = OPENAI_API_KEY
 
 def generate_response_from_transcript(transcript):
     try:
         response = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo-0301",
+                model="gpt-3.5-turbo",
                 messages=[{"role": "system", "content": create_prompt(transcript)}],
                 temperature = 0.0
         )
